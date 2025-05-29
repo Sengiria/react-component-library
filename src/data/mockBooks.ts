@@ -1,0 +1,73 @@
+export const mockBooks = [
+  {
+    id: '1',
+    title: 'The Midnight Library',
+    author: 'Matt Haig',
+    genre: 'Fantasy',
+    cover: 'https://covers.openlibrary.org/b/id/14825926-L.jpg',
+  },
+  {
+    id: '2',
+    title: 'Project Hail Mary',
+    author: 'Andy Weir',
+    genre: 'Science Fiction',
+    cover: 'https://covers.openlibrary.org/b/id/14433087-L.jpg',
+  },
+  {
+    id: '3',
+    title: 'The Silent Patient',
+    author: 'Alex Michaelides',
+    genre: 'Thriller',
+    cover: 'https://covers.openlibrary.org/b/id/8415060-L.jpg',
+  },
+  {
+    id: '4',
+    title: 'Where the Crawdads Sing',
+    author: 'Delia Owens',
+    genre: 'Mystery',
+    cover: 'https://covers.openlibrary.org/b/id/14430691-L.jpg',
+  },
+  {
+    id: '5',
+    title: 'Circe',
+    author: 'Madeline Miller',
+    genre: 'Fantasy',
+    cover: 'https://covers.openlibrary.org/b/id/12927145-L.jpg',
+  },
+  {
+    id: '6',
+    title: 'The Martian',
+    author: 'Andy Weir',
+    genre: 'Science Fiction',
+    cover: 'https://covers.openlibrary.org/b/id/11447108-L.jpg',
+  },
+  {
+    id: '7',
+    title: 'The Guest List',
+    author: 'Lucy Foley',
+    genre: 'Thriller',
+    cover: 'https://covers.openlibrary.org/b/id/10398458-L.jpg',
+  },
+  {
+    id: '8',
+    title: 'The Night Circus',
+    author: 'Erin Morgenstern',
+    genre: 'Fantasy',
+    cover: 'https://covers.openlibrary.org/b/id/8750523-L.jpg',
+  },
+  {
+    id: '9',
+    title: 'Dune',
+    author: 'Frank Herbert',
+    genre: 'Science Fiction',
+    cover: 'https://covers.openlibrary.org/b/id/14856017-L.jpg',
+  },
+  {
+    id: '10',
+    title: 'The Woman in the Window',
+    author: 'A.J. Finn',
+    genre: 'Thriller',
+    cover: 'https://covers.openlibrary.org/b/id/8315362-L.jpg',
+  },
+
+]
