@@ -2,11 +2,13 @@ import React from 'react';
 import AutoCarousel from './variants/AutoCarousel';
 import type { ImageCarouselProps } from './types';
 import { VARIANT_AUTO, VARIANT_DEFAULT } from './constants';
+import DefaultCarousel from './variants/DefaultCarousel';
 
 export const ImageCarousel: React.FC<ImageCarouselProps> = ({
   images,
   variant = VARIANT_DEFAULT,
   intervalMs,
+  showHint = true
 }) => {
   switch (variant) {
     case VARIANT_AUTO: {
@@ -22,10 +24,6 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     }
     case VARIANT_DEFAULT:
     default:
-      return (
-        <div className="flex overflow-x-auto space-x-4 p-4">
-          Not implemented yet
-        </div>
-      );
+      return <DefaultCarousel images={images} showHint={showHint} />;
   }
 };

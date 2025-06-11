@@ -30,6 +30,7 @@ export const DefaultVariant: Story = {
   args: {
     images: sampleImages,
     variant: VARIANT_DEFAULT,
+    showHint: true
   },
 };
 

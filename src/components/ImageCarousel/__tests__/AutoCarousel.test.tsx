@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
-import AutoCarousel from '../ImageCarousel/variants/AutoCarousel';
+import AutoCarousel from '../variants/AutoCarousel';
 
 const leftImages = [
     'left1.jpg', 'left2.jpg', 'left3.jpg',

@@ -1,8 +1,9 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
-import { AnimatedBookFilter } from '../AnimatedBookFilter/AnimatedBookFilter'
+import { AnimatedBookFilter } from '../AnimatedBookFilter'
 
-vi.mock('../../data/mockBooks', () => ({
+
+vi.mock('../../../data/mockBooks', () => ({
   mockBooks: [
     { id: '1', title: 'Test Book 1', author: 'Author 1', genre: 'Fantasy', cover: 'https://via.placeholder.com/150x200?text=1' },
     { id: '2', title: 'Test Book 2', author: 'Author 2', genre: 'Science Fiction', cover: 'https://via.placeholder.com/150x200?text=2' },

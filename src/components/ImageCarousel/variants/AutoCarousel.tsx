@@ -1,27 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import type { AutoCarouselProps } from '../types';
+import { LEFT_PERSPECTIVES, RIGHT_PERSPECTIVES } from '../constants';
 
 const AutoCarousel: React.FC<AutoCarouselProps> = ({ leftImages, rightImages, intervalMs = 1000 }) => {
     const leftRefs = useRef<HTMLImageElement[]>([]);
     const rightRefs = useRef<HTMLImageElement[]>([]);
-
-    const leftPerspectives = [
-        { x: -10, z: -4 },
-        { x: -20, z: -8 },
-        { x: -30, z: -12 },
-        { x: -40, z: -16 },
-        { x: -50, z: -20 },
-        { x: 10, z: -4 },
-    ];
-
-    const rightPerspectives = [
-        { x: 10, z: -4 },
-        { x: 20, z: -8 },
-        { x: 30, z: -12 },
-        { x: 40, z: -16 },
-        { x: 50, z: -20 },
-        { x: -10, z: -4 },
-    ];
 
     useEffect(() => {
         const translateImage = (el: HTMLImageElement, p: { x: number; z: number }) => {
@@ -35,8 +18,8 @@ const AutoCarousel: React.FC<AutoCarouselProps> = ({ leftImages, rightImages, in
         };
 
         const interval = setInterval(() => {
-            leftRefs.current.forEach(el => animateCards(el, leftPerspectives));
-            rightRefs.current.forEach(el => animateCards(el, rightPerspectives));
+            leftRefs.current.forEach(el => animateCards(el, LEFT_PERSPECTIVES));
+            rightRefs.current.forEach(el => animateCards(el, RIGHT_PERSPECTIVES));
         }, intervalMs);
 
         // cleanup
