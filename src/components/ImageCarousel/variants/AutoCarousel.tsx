@@ -11,6 +11,19 @@ const AutoCarousel: React.FC<AutoCarouselProps> = ({ leftImages, rightImages, in
             el.style.transform = `translate3d(${p.x}rem, 0, ${p.z}rem)`;
         };
 
+        leftRefs.current.forEach(el => {
+            if (el) {
+                const current = parseInt(el.dataset.counter || '1');
+                translateImage(el, LEFT_PERSPECTIVES[current - 1]);
+            }
+        });
+        rightRefs.current.forEach(el => {
+            if (el) {
+                const current = parseInt(el.dataset.counter || '1');
+                translateImage(el, RIGHT_PERSPECTIVES[current - 1]);
+            }
+        });
+
         const animateCards = (el: HTMLImageElement, perspectives: { x: number; z: number }[]) => {
             const current = parseInt(el.dataset.counter || '1');
             translateImage(el, perspectives[current - 1]);
@@ -22,12 +35,11 @@ const AutoCarousel: React.FC<AutoCarouselProps> = ({ leftImages, rightImages, in
             rightRefs.current.forEach(el => animateCards(el, RIGHT_PERSPECTIVES));
         }, intervalMs);
 
-        // cleanup
         return () => clearInterval(interval);
     }, [intervalMs]);
 
     return (
-        <div className="gallery w-full h-[28rem] max-w-7xl mx-auto flex items-center">
+        <div className="gallery w-full h-[28rem] max-w-7xl mx-auto flex items-center select-none">
             <div className="left w-1/2 h-full overflow-hidden flex items-center relative">
                 <div className="inner w-full flex items-center relative perspective-[500px] transform-3d perspective-origin-left-center">
                     {leftImages.map((src, idx) => (

@@ -82,7 +82,7 @@ const DefaultCarousel: React.FC<Props> = ({ images, showHint = false }) => {
     return (
         <div
             ref={containerRef}
-            className="gallery w-full h-[28rem] max-w-7xl mx-auto flex items-center"
+            className="gallery w-full h-[28rem] max-w-7xl mx-auto flex items-center select-none"
             data-testid="carousel-gallery"
             onClick={handleClick}
             onMouseDown={(e) => handleStart(e.clientX)}

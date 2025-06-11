@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import AutoCarousel from '../variants/AutoCarousel';
 
+
 const leftImages = [
     'left1.jpg', 'left2.jpg', 'left3.jpg',
     'left4.jpg', 'left5.jpg', 'left6.jpg'
@@ -21,12 +22,15 @@ describe('AutoCarousel', () => {
 
     test('animates images every intervalMs', () => {
         render(<AutoCarousel leftImages={leftImages} rightImages={rightImages} intervalMs={500} />);
-        const firstLeft = screen.getAllByAltText(/Left/)[0];
-        const initialTransform = firstLeft.style.transform;
+        const leftImgs = screen.getAllByAltText(/Left/);
+
+        const countersBefore = leftImgs.map(img => img.getAttribute('data-counter'));
         vi.advanceTimersByTime(500);
-        const updatedTransform = firstLeft.style.transform;
-        expect(updatedTransform).not.toBe(initialTransform);
+        const countersAfter = screen.getAllByAltText(/Left/).map(img => img.getAttribute('data-counter'));
+
+        expect(countersAfter).not.toEqual(countersBefore);
     });
+
 
     test('handles fewer than 6 images gracefully', () => {
         render(<AutoCarousel leftImages={['left1.jpg']} rightImages={['right1.jpg']} />);
@@ -35,17 +39,17 @@ describe('AutoCarousel', () => {
 
     test('respects the intervalMs prop correctly', () => {
         render(<AutoCarousel leftImages={leftImages} rightImages={rightImages} intervalMs={1000} />);
-        const firstLeft = screen.getAllByAltText(/Left/)[0];
-        const initial = firstLeft.style.transform;
+        const getCounters = () => screen.getAllByAltText(/Left/).map(img => img.getAttribute('data-counter'));
 
-        // At 500ms, nothing should have changed
-        vi.advanceTimersByTime(500);
-        expect(firstLeft.style.transform).toBe(initial);
+        const before = getCounters();
 
-        // At 1000ms, transform should update
         vi.advanceTimersByTime(500);
-        expect(firstLeft.style.transform).not.toBe(initial);
+        expect(getCounters()).toEqual(before); // not yet rotated
+
+        vi.advanceTimersByTime(500); // total 1000ms
+        expect(getCounters()).not.toEqual(before); // should have rotated
     });
+
 
     test('clears interval on unmount', () => {
         const clearSpy = vi.spyOn(global, 'clearInterval');
