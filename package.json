@@ -13,11 +13,13 @@
     "storybook:build": "storybook build",
     "storybook:deploy": "npm run storybook:build && gh-pages -d storybook-static",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "create-component": "node scripts/createNewComponent.cjs"
   },
   "dependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/vite": "^4.1.8",
+    "clsx": "^2.1.1",
     "framer-motion": "^12.12.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

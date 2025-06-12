@@ -1,0 +1,28 @@
+/* TODO: Figure out why does tailwind custom animation not work */
+.ripple-effect {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  border-radius: 50%;
+  animation: ripple-effect 0.7s ease-out;
+  will-change: transform, opacity;
+  z-index: 10;
+  mix-blend-mode: screen;
+  filter: blur(1px);
+}
+
+@keyframes ripple-effect {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.35;
+  }
+  100% {
+    width: 500px;
+    height: 500px;
+    opacity: 0;
+  }
+}
