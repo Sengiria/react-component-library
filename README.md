@@ -1,54 +1,293 @@
-# React + TypeScript + Vite
+# 🧩 React Component Library
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, reusable component library built with **React**, **TypeScript**, **Tailwind CSS**, and **Storybook**.  
+This library is designed to accelerate frontend development with ready-to-use UI components featuring accessibility, responsiveness, and customization in mind.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔗 Live Demo
 
-## Expanding the ESLint configuration
+Explore the components in Storybook:  
+👉 [https://sengiria.github.io/react-component-library](https://sengiria.github.io/react-component-library)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 📦 Installation
+
+Clone the repository and install dependencies:
+
+```bash
+npm install
+```
+---
+
+## 🧪 Run Storybook Locally
+
+To explore the components and test them in isolation:
+
+```bash
+npm run storybook
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📂 Create a New Component
+To streamline component development, this project includes a script to scaffold a new component structure automatically.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+🧰 What it does:
+When you run the script, it:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
+- Creates a new folder under src/components/[ComponentName]
+- Adds:
+  - ComponentName.tsx with a basic functional component
+  - ComponentName.stories.tsx for Storybook
+  - constants.ts, types.ts
+  - Subfolders: variants/, __tests__/
+
+🚀 How to use:
+
+```bash
+node scripts/createComponent.js YourComponentName
+```
+
+Replace YourComponentName with the desired name in PascalCase.
+
+Make sure you're in the root folder and that Node.js is installed.
+
+```bash
+src/
+└── components/
+    └── YourComponentName/
+        ├── YourComponentName.tsx
+        ├── YourComponentName.stories.tsx
+        ├── constants.ts
+        ├── types.ts
+        ├── variants/
+        └── __tests__/
+
+```
+
+---
+
+## 🧱 Technologies Used
+
+- ⚛️ React
+- 🧠 TypeScript
+- 💨 Tailwind CSS
+- 🎬 Framer Motion
+- 📚 Storybook
+
+---
+
+## 🧩 Available Components
+
+📌 This library is actively growing. Each component will have its own dedicated section.
+
+- Animated Filter
+- Image Carousel
+- Button
+- ⏳ More coming soon
+
+Each component is developed with customization and reuse in mind.
+Props, variants, and usage examples are documented directly in Storybook.
+
+---
+
+# 🌀 AnimatedFilter<T> – Reusable Animated Filtering Component
+
+The AnimatedFilter component is a reusable, animated filtering grid that supports generic types, enabling it to be used across various domains like books, products, movies, and more. It uses Framer Motion for animations and supports custom rendering for each item.
+
+## ✅ Basic Usage in Your App
+
+The component is generic, and TypeScript will infer the type from the items array:
+
+```tsx
+import AnimatedFilter from './AnimatedFilter';
+
+const books = [
+  { id: '1', name: 'Dune', category: 'Sci-Fi', image: 'cover.jpg' },
+  { id: '2', name: 'Circe', category: 'Fantasy', image: 'cover2.jpg' },
+  // ...
+];
+
+const categories = ['All', 'Sci-Fi', 'Fantasy'];
+
+<AnimatedFilter
+  items={books}
+  filters={categories}
+  filterKey="category"
+  renderItem={(book) => (
+    <>
+      <img src={book.image} alt={book.name} />
+      <p>{book.name}</p>
+      <p>{book.category}</p>
+    </>
+  )}
+/>;
+```
+
+## 🧪 Storybook Setup with Generics
+
+Because Storybook doesn’t infer generics, you must bind them manually:
+
+```tsx
+import type { Meta, StoryObj } from '@storybook/react';
+import AnimatedFilter from './AnimatedFilter';
+import { mockBooks } from '../data/mockBooks';
+
+type Book = {
+  id: string;
+  name: string;
+  category: string;
+  image: string;
+};
+
+// ✅ Manually bind the generic
+const BookFilter = AnimatedFilter<Book>;
+
+const meta: Meta<typeof BookFilter> = {
+  component: BookFilter,
+  title: 'Components/AnimatedFilter',
+};
+export default meta;
+
+type Story = StoryObj<typeof BookFilter>;
+
+export const Default: Story = {
+  render: () => {
+    const filters = ['All', ...new Set(mockBooks.map((book) => book.category))];
+    return (
+      <BookFilter
+        items={mockBooks}
+        filters={filters}
+        filterKey="category"
+        renderItem={(book) => (
+          <>
+            <img src={book.image} alt={book.name} />
+            <p>{book.name}</p>
+            <p>{book.category}</p>
+          </>
+        )}
+      />
+    );
   },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+};
+
+```
+
+## ⚙️ Props
+
+```tsx
+type AnimatedFilterProps<T extends { id: string | number }> = {
+  items?: T[];
+  filterKey?: keyof T;         // Default: 'category'
+  filters?: string[];          // Must include 'All'
+  emptyText?: string;          // Shown when no results
+  renderItem?: (item: T) => React.ReactNode;
+};
+```
+
+# 🖼️ ImageCarousel – Interactive 3D Image Carousel Component
+
+The ImageCarousel is a flexible and visually engaging component for displaying sets of images in a dynamic, animated carousel. It supports both automatic and manual interaction variants and uses translate3d with perspective styling to create a pseudo-3D effect.
+
+## ✨ Features
+- 🎞️ Animated 3D-like transitions
+- 🧠 Accessible: Images use alt text for screen readers
+- 💻 Responsive: Works well on mobile and desktop
+- ⚙️ Customizable: Control timing and image sets
+- 🖱️ DefaultCarousel supports pointer, mouse, and touch drag
+- 🚫 Prevents unwanted image selection highlighting in browsers
+
+## 🧩 Variants
+
+👆 DefaultCarousel
+Manually swipe, drag, or click to interact with the image carousel on all devices.
+
+```tsx
+import DefaultCarousel from './ImageCarousel/variants/DefaultCarousel';
+
+<DefaultCarousel
+  leftImages={['left1.jpg', 'left2.jpg', 'left3.jpg']}
+  rightImages={['right1.jpg', 'right2.jpg', 'right3.jpg']}
+/>
+```
+
+🔁 AutoCarousel
+Automatically cycles through images at a fixed interval with smooth 3D animations.
+
+```tsx
+import AutoCarousel from './ImageCarousel/variants/AutoCarousel';
+
+<AutoCarousel
+  leftImages={['left1.jpg', 'left2.jpg', 'left3.jpg']}
+  rightImages={['right1.jpg', 'right2.jpg', 'right3.jpg']}
+  intervalMs={1000}
+/>
+```
+
+## ⚙️ Props
+
+```tsx
+type DefaultCarouselProps = {
+  leftImages: string[];
+  rightImages: string[];
+};
+
+type AutoCarouselProps = {
+  leftImages: string[];
+  rightImages: string[];
+  intervalMs?: number; // Defaults to 1000ms
+};
+```
+---
+
+# 🔘 Button – Customizable Ripple Button Component
+
+The Button component is a reusable, interactive button that supports ripple effects, color variants, and accessibility. It adapts seamlessly to different UI needs while offering subtle yet elegant interaction feedback.
+
+## ✨ Features
+- 🌊 Ripple animation on click (optional toggle)
+- 🎨 Predefined color variants (default, primary, secondary, danger)
+- ♿ Accessible with keyboard and screen readers
+- 🔧 Customizable text, click behavior, and style
+
+---
+
+## 🧪 Usage Example
+
+```tsx
+import { Button, COLOR_PRIMARY } from './Button';
+
+<Button
+  text="Submit"
+  color={COLOR_PRIMARY}
+  ripple
+  onClick={() => console.log('Clicked!')}
+/>;
+```
+
+---
+
+## 🎨 Color Variants
+
+You can choose from built-in color options using constants:
+
+```ts
+COLOR_DEFAULT     // purple theme (default)
+COLOR_PRIMARY     // vibrant blue
+COLOR_SECONDARY   // soft gray with border
+COLOR_DANGER      // red tone for destructive actions
+```
+
+---
+
+## ⚙️ Props
+
+```ts
+type ButtonProps = {
+  text: string;
+  onClick?: () => void;
+  color?: typeof COLOR_DEFAULT | typeof COLOR_PRIMARY | typeof COLOR_SECONDARY | typeof COLOR_DANGER;
+  ripple?: boolean; // Enables ripple effect (default: true)
+  className?: string; // Optional custom styling
+};
 ```
