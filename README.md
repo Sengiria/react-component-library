@@ -291,3 +291,42 @@ type ButtonProps = {
   className?: string; // Optional custom styling
 };
 ```
+---
+
+# ✏️ InputField – Floating Label Text Input with Optional Password Toggle
+
+The InputField is a reusable and accessible input component that features a floating label and optional password visibility toggle. Designed with usability and customization in mind, it's ideal for login forms, settings pages, and more.
+
+## ✨ Features
+- 🏷️ Floating label animation
+- 👁️ Optional password visibility toggle
+- 🔐 Supports required fields and custom names
+- ♿ Accessible via proper label and aria usage
+- 🎨 Customizable via props and Tailwind styling
+
+---
+
+## ✅ Usage
+
+```tsx
+import InputField from './InputField';
+
+<InputField label="Email" required />
+<InputField label="Password" hidden required />
+```
+
+---
+
+## ⚙️ Props
+
+```ts
+type InputFieldProps = {
+  label: string;           // Label for the input, shown and used as fallback for name
+  hidden?: boolean;        // If true, toggles between 'password' and 'text'
+  required?: boolean;      // If true, adds `required` HTML attribute
+  name?: string;           // Input name, defaults to label
+  onFocus?: () => void;    // Optional focus handler
+  onBlur?: () => void;     // Optional blur handler
+  onChange?: () => void;   // Optional change handler
+};
+```
